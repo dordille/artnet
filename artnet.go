@@ -67,11 +67,6 @@ type ArtDmx struct {
 	Data      [512]uint8
 }
 
-type Connection struct {
-	ClientAddr *net.UDPAddr
-	ServerConn *net.UDPConn
-}
-
 func opByteSwap(opcode OpCode) OpCode {
 	return (opcode>>8)&0xff | opcode&0xff
 }
