@@ -75,24 +75,24 @@ type Node struct {
 	conn *net.UDPConn
 }
 
-func NewNode(service string) (error, *Node) {
+func NewNode(service string) (*Node, error) {
 	node := &Node{}
 
 	addr, err := net.ResolveUDPAddr("udp", service)
 	if err != nil {
-		return err, nil
+		return nil, err
 	}
 
 	node.conn, err = net.DialUDP("udp", nil, addr)
 	if err != nil {
-		return err, nil
+		return nil, err
 	}
 
 	log.Printf("Established connection to %s \n", service)
 	log.Printf("Remote UDP address : %s \n", node.conn.RemoteAddr().String())
 	log.Printf("Local UDP client address : %s \n", node.conn.LocalAddr().String())
 
-	return nil, node
+	return node, nil
 }
 
 func (node *Node) Close() error {
